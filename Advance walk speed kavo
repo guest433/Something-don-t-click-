@@ -1,0 +1,39 @@
+Certainly! Here's how you can modify the code to create a section in the Kavo UI library:
+
+```lua
+local Library = loadstring(game:HttpGet("https://pastebin.com/raw/edJT9EGX", true))()
+local Window = Library.CreateLib("Toggle Example", "DarkTheme")
+
+local MovementSection = Window:NewSection("Movement")
+
+local Toggle = MovementSection:NewToggle("Continuous Forward Movement", function(state)
+    if state then
+        RunMovement()
+    else
+        StopMovement()
+    end
+end)
+
+local Player = game:GetService("Players").LocalPlayer
+local Running = false
+
+function RunMovement()
+    if not Running then
+        Running = true
+        while Running do
+            Player.Character.HumanoidRootPart.CFrame = Player.Character.HumanoidRootPart.CFrame + Player.Character.HumanoidRootPart.CFrame.lookVector * 1
+            Player.Character.HumanoidRootPart.CFrame = Player.Character.HumanoidRootPart.CFrame + Player.Character.HumanoidRootPart.CFrame.lookVector * 1
+            Player.Character.HumanoidRootPart.CFrame = Player.Character.HumanoidRootPart.CFrame + Player.Character.HumanoidRootPart.CFrame.lookVector * 1
+            wait(0.005)
+        end
+    end
+end
+
+function StopMovement()
+    Running = false
+end
+```
+
+In this modified code, a new section called "Movement" is created using `Window:NewSection()`. The toggle for continuous forward movement is then created inside this section using `MovementSection:NewToggle()`. The rest of the code remains the same.
+
+You can customize the section and toggle names as per your preference. Remember to replace the Kavo UI library link (`https://pastebin.com/raw/edJT9EGX`) with the correct link, if needed.
