@@ -1,6 +1,3 @@
-Certainly! Here's how you can modify the code to create a section in the Kavo UI library:
-
-```lua
 local Library = loadstring(game:HttpGet("https://pastebin.com/raw/edJT9EGX", true))()
 local Window = Library.CreateLib("Toggle Example", "DarkTheme")
 
@@ -32,8 +29,34 @@ end
 function StopMovement()
     Running = false
 end
-```
 
-In this modified code, a new section called "Movement" is created using `Window:NewSection()`. The toggle for continuous forward movement is then created inside this section using `MovementSection:NewToggle()`. The rest of the code remains the same.
 
-You can customize the section and toggle names as per your preference. Remember to replace the Kavo UI library link (`https://pastebin.com/raw/edJT9EGX`) with the correct link, if needed.
+-- other one
+
+local Toggle = MovementSection:NewToggle("advance speedwalking", function(state)
+    if state then
+        _G.Running = true
+        RunMovement()
+    else
+        _G.Running = false
+        StopMovement()
+    end
+end)
+
+local Player = game:GetService("Players").LocalPlayer
+
+function RunMovement()
+    while _G.Running do
+        local humanoidRootPart = Player.Character and Player.Character:FindFirstChild("HumanoidRootPart")
+        if humanoidRootPart then
+            local forwardDirection = humanoidRootPart.CFrame.lookVector
+            Player.Character.Humanoid:MoveTo(Player.Character.HumanoidRootPart.Position + forwardDirection * 1) -- Adjust the number to change the distance moved per step
+        end
+        wait()
+    end
+end
+
+function StopMovement()
+    -- Stop the continuous forward movement logic here
+    Player.Character.Humanoid:MoveTo(Player.Character.HumanoidRootPart.Position)
+end
